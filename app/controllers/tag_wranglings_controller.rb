@@ -8,6 +8,7 @@ class TagWranglingsController < ApplicationController
 
   def index
     @counts = tag_counts_per_category
+    @page_subtitle = t(".page_subtitle")
     authorize :wrangling, :read_access? if logged_in_as_admin?
     return if params[:show].blank?
 
@@ -18,7 +19,6 @@ class TagWranglingsController < ApplicationController
 
     if params[:show] == "fandoms"
       @media_names = Media.by_name.pluck(:name)
-      @page_subtitle = t(".page_subtitle")
     end
 
     type = params[:show].singularize.capitalize
